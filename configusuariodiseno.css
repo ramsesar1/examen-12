@@ -1,0 +1,78 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(255, 152, 120);
+}
+
+#logosito{
+    position: absolute;
+    margin-left: 780px;
+    margin-top: 20px;
+
+}
+
+#registro{
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 40px;
+    margin-top: 150px;
+    padding-left: 720px;
+    padding-right: 750px;
+    padding-bottom: 50px;
+    background-color: rgb(255, 127, 86);
+}
+
+#name{
+   border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 70px;
+    width: 300px;
+    height: 50px;
+}
+
+#correo{
+    border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 50px;
+    width: 300px;
+    height: 50px;
+}
+
+#contra{
+    border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 50px;
+    width: 300px;
+    height: 50px;
+}
+
+#telefono{
+    border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 50px;
+    width: 300px;
+    height: 50px;
+}
+
+#direccion{
+    border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 50px;
+    width: 300px;
+    height: 50px;
+}
+
+#btnregistro{
+    border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 50px;
+    width: 300px;
+    height: 50px;
+}
+
+#pasoiniciarsesion{
+    border-radius: 10px;
+    margin-top: 50px;
+}
