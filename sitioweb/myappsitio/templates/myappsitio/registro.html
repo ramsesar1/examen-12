@@ -1,3 +1,6 @@
+{% load static %}
+
+
 <!-- registro.html -->
 
 <!DOCTYPE html>
@@ -5,11 +8,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'registro.css' %}">
+    <link rel="stylesheet" href="{% static 'myappsitio/registro.css' %}">
     <title>Registro</title>
 </head>
 <body>
-    <img src="{% static 'logoRams.png' %}" alt="logo" id="logosito"><br>
+    <img src="{% static 'myappsitio/logoRams.png' %}" alt="logo" id="logosito"><br>
     <div id="registro">
         <form method="post" action="{% url 'registrar_usuario' %}">
             {% csrf_token %}
@@ -23,7 +26,7 @@
         </form>
         
         <li id="pasoiniciarsesion">
-            <a href="{% url 'nombre_de_tu_vista_login' %}">Ya tienes cuenta? inicia sesion aquí</a>
+            <a href="{% url 'iniciar_sesion' %}">Ya tienes cuenta? inicia sesion aquí</a>
         </li>
     </div>
 </body>

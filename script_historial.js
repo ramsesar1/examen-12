@@ -1,9 +1,5 @@
-// script_historial.js
-
-// Recuperar el historial de compras del localStorage
 const historial = JSON.parse(localStorage.getItem('historial')) || [];
 
-// Mostrar el historial en la página
 const contenedorBlanco = document.getElementById('contenedor-blanco');
 
 function mostrarHistorial() {
@@ -27,9 +23,7 @@ function mostrarHistorial() {
     });
 }
 
-// Puedes implementar funciones auxiliares para obtener información del producto
 function getItemNameById(itemId) {
-    // Lógica para obtener el nombre del producto por su ID
     switch (itemId) {
         case 'btn1':
             return 'WAGYU A5';
@@ -53,7 +47,6 @@ function getItemNameById(itemId) {
 }
 
 function getItemPriceById(itemId) {
-    // Lógica para obtener el precio del producto por su ID
     switch (itemId) {
         case 'btn1':
             return '$1250';
@@ -76,5 +69,4 @@ function getItemPriceById(itemId) {
     }
 }
 
-// Mostrar el historial al cargar la página
 mostrarHistorial();

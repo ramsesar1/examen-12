@@ -1,0 +1,156 @@
+sigue igual, si no fuera por el "required" en los textfields el codigo sigue sin servir
+
+Necesito que login.html revise la base de datos y verifique si hay un usuario con tal correo y contraseña que sean validas para que el boton permita hacer el cambio de pagina.
+A como esta, al presionar el boton cambia de pagina con que cualquier valor este en los textfields, cuando solo debe poder con el "correo" y "contraseña" ya existentes
+Necesito que todas las ventanas .py y las paginas .html esten enlazadas una con la otra,  ya que no sirve
+
+
+login.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title>Login</title>
+</head>
+<body>
+    <img src="logoRams.png" alt="logo" id="logosito"><br>
+    <div id="loginpanel">
+        <form method="post" action="inicio.html">
+            {% csrf_token %}
+          <input type="text" name="correo" placeholder="Correo" required> <br>
+          <input type="password" name="contraseña" placeholder="Contraseña" required> <br>
+          <button type="submit" id="btnlogin">INICIAR SESIÓN</button> <br>
+        </form>
+        <li id="pasoregistro">
+            <a href="registro.html">No tienes cuenta? regístrate aquí</a>
+        </li>
+    </div>
+</body>
+</html>
+
+
+
+
+
+models.py
+
+# models.py
+from django.db import models
+
+class Usuario(models.Model):
+    nombre = models.CharField(max_length=255)
+    correo = models.EmailField(unique=True)
+    contraseña = models.CharField(max_length=255)
+    telefono = models.CharField(max_length=15)
+    direccion = models.TextField()
+
+    def __str__(self):
+        return self.nombre
+
+
+views.py
+ 
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from .models import Usuario
+
+
+def registrar_usuario(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('name')
+        correo = request.POST.get('correo')
+        contraseña = request.POST.get('contra')
+        telefono = request.POST.get('telefono')
+        direccion = request.POST.get('direccion')
+
+        # Crear un nuevo usuario y guardarlo en la base de datos
+        nuevo_usuario = Usuario(nombre=nombre, correo=correo, contraseña=contraseña, telefono=telefono, direccion=direccion)
+        nuevo_usuario.save()
+
+        # Redirigir a la página de inicio o a donde desees
+        return redirect("login.html")
+
+    return render(request, 'myappsitio/tu_template.html')
+
+
+
+
+
+
+
+
+
+# views.py
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
+from .models import Usuario
+
+def iniciar_sesion(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            correo = form.cleaned_data.get('username')  # username es el campo de correo electrónico
+            contraseña = form.cleaned_data.get('password')
+
+            if not correo or not contraseña:
+                messages.error(request, 'Por favor, ingresa tu correo y contraseña.')
+                return render(request, 'myappsitio/login.html', {'form': form})
+
+            # Consultar la base de datos para autenticar al usuario
+            usuario = authenticate(request, correo=correo, contraseña=contraseña)
+
+            if usuario is not None:
+                login(request, usuario)
+                return redirect('nombre_de_tu_vista_inicio')
+            else:
+                messages.error(request, 'Inicio de sesión fallido. Comprueba tu correo y contraseña.')
+                return render(request, 'myappsitio/login.html', {'form': form})
+        else:
+            messages.error(request, 'El formulario no es válido. Comprueba tus datos.')
+            return render(request, 'myappsitio/login.html', {'form': form})
+    else:
+        form = AuthenticationForm()
+    
+    return render(request, 'myappsitio/login.html', {'form': form})
+
+
+
+
+
+
+
+
+urls.py myappsitio
+
+# myappsitio/urls.py
+
+from django.urls import path
+from .views import registrar_usuario, iniciar_sesion
+
+urlpatterns = [
+    path('registrar/', registrar_usuario, name='registrar_usuario'),  # Nombre actualizado
+    path('iniciar_sesion/', iniciar_sesion, name='iniciar_sesion'),  # Nombre actualizado
+    # ... otras URLs de tu aplicación ...
+]
+
+
+
+
+urls.py sitioweb
+
+
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('myappsitio/', include('myappsitio.urls')),
+    # ... otras URLs del proyecto ...
+]
+
+

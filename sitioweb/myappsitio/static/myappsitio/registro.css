@@ -1,0 +1,128 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(255, 152, 120);
+}
+
+#logosito{
+    position: absolute;
+    margin-left: 780px;
+    margin-top: 20px;
+
+}
+
+#registro{
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 40px;
+    margin-top: 150px;
+    padding-left: 720px;
+    padding-right: 750px;
+    padding-bottom: 50px;
+    background-color: rgb(255, 127, 86);
+}
+
+#name{
+   border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 70px;
+    width: 300px;
+    height: 50px;
+}
+
+#correo{
+    border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 50px;
+    width: 300px;
+    height: 50px;
+}
+
+#contra{
+    border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 50px;
+    width: 300px;
+    height: 50px;
+}
+
+#telefono{
+    border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 50px;
+    width: 300px;
+    height: 50px;
+}
+
+#direccion{
+    border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 50px;
+    width: 300px;
+    height: 50px;
+}
+
+#btnregistro{
+    border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 50px;
+    width: 300px;
+    height: 50px;
+}
+
+#pasoiniciarsesion{
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(255, 152, 120);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+#logosito {
+    position: absolute;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+}
+
+#registro {
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    left: 10%;
+    right: 10%;
+    top: 20%;
+    background-color: rgb(255, 127, 86);
+    padding: 20px;
+    max-width: 500px; 
+    margin: 0 auto; 
+}
+
+#name,
+#correo,
+#contra,
+#telefono,
+#direccion,
+#btnregistro {
+    width: 100%; 
+    margin-top: 20px; 
+}
+
+#btnregistro {
+    background-color: rgb(217, 217, 217);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#pasoiniciarsesion {
+    text-align: center; 
+    margin-top: 20px; 
+}

@@ -1,0 +1,84 @@
+{% load static %}
+
+
+<!-- inicio.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="inicioDiseño.css">
+    <title>Inicio</title>
+</head>
+
+<body>
+    <header id="cabeza">
+        <img src="logoRams.png" alt="logo" id="logoaka">
+        <div id="elementos">
+            <div class="imagen-container">
+                <a href="carrito.html">
+                    <img src="carrito.png" alt="carrito" id="carro">
+                    <label for="carrito" id="txtcarro">CARRITO</label>
+                </a>
+            </div>
+
+            <div class="imagen-container">
+                <a href="configusuario.html">
+                    <img src="user.png" alt="user" id="usuario">
+                    <label for="usuario" id="txtiniciar">USUARIO</label>
+                </a>
+            </div>
+
+            <div>
+                <a href="login.html">
+                    <button id="cerrar"> CERRAR <br> SESION</button>
+                </a>
+            </div>
+
+            <div>
+                <a href="historial.html">
+                    <button id="verHistorial"> VER <br> HISTORIAL</button>
+                </a>
+            </div>
+
+            <img src="lupa.png" alt="lupa" id="lupita">
+
+            <input type="text" id="buscador">
+        </div>
+    </header>
+
+    <div id="bannerImagen">
+        <img src="banner.png" alt="banner" id="banersito">
+    </div>
+
+    <div id="productos" class="productos-container">
+        <a href="menu.html">
+            <button id="menumostrar"> MENU <br> COMPLETO</button>
+        </a>
+
+        <div class="producto">
+            <img src="burger.png" alt="burgers" class="producto-imagen">
+            <label for="productos" class="producto-label">SUPER CHEESE</label>
+        </div>
+        <div class="producto">
+            <img src="sodita.png" alt="soda" class="producto-imagen">
+            <label for="productos" class="producto-label">REFRESCO</label>
+        </div>
+        <div class="producto">
+            <img src="papitas.png" alt="papas" class="producto-imagen">
+            <label for="productos" class="producto-label">PAPAS FRITAS</label>
+        </div>
+        <div class="producto">
+            <img src="burger22.png" alt="pack-4-family" class="producto-imagen">
+            <label for="productos" class="producto-label">PACK-4-FAMILY</label>
+        </div>
+        <div class="producto">
+            <img src="packind.png" alt="pack-individual" class="producto-imagen">
+            <label for="productos" class="producto-label">PACK INDIVIDUAL</label>
+        </div>
+    </div>
+</body>
+
+</html>

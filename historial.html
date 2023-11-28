@@ -1,42 +1,46 @@
-<!-- historial.html -->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="carritodiseno.css">
     <title>Historial de Compras</title>
 </head>
-
 <body>
     <a href="inicio.html" id="inicio-button">Ir a Inicio</a>
     <img src="logoRams.png" alt="logo" id="logosito"><br>
     <div id="loginpanel">
         <div id="contenedor-blanco"></div>
-        <!-- Contenedor para mostrar el historial -->
-
-        <!-- Botón para limpiar el historial -->
         <button id="limpiarHistorialButton">Limpiar Historial</button>
     </div>
 
     <script src="script_historial.js"></script>
     
     <script>
-        // Añadir un manejador de clic al botón de limpiar historial
+
+
+const lastLoggedInUser = localStorage.getItem('ultimoUsuario');
+
+if (lastLoggedInUser) {
+    const userHistory = JSON.parse(localStorage.getItem(`historial_${lastLoggedInUser}`)) || [];
+
+
+
         document.getElementById('limpiarHistorialButton').addEventListener('click', limpiarHistorial);
 
         function limpiarHistorial() {
-            // Limpiar el historial
             localStorage.removeItem('historial');
 
-            // Actualizar la visualización del historial
             mostrarHistorial();
         }
 
-        // Llamada a la función para mostrar el historial al cargar la página
         mostrarHistorial();
+
+    } else {
+    alert("Por favor, inicia sesión para ver tu historial.");
+    window.location.href = 'login.html';
+}
+
     </script>
 </body>
 
