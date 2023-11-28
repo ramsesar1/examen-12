@@ -12,12 +12,13 @@
 <body>
     <img src="{% static 'myappsitio/logoRams.png' %}" alt="logo" id="logosito"><br>
     <div id="loginpanel">
-        <form method="post" action="{% url 'iniciar_sesion' %}">
-            {% csrf_token %}
-            <input type="text" name="correo" placeholder="Correo" required> <br>
-            <input type="password" name="contraseña" placeholder="Contraseña" required> <br>
-            <button type="submit" id="btnlogin">INICIAR SESIÓN</button> <br>
-        </form>
+ <!--       <form method="post" action="{% url 'iniciar_sesion' %}">  -->
+            <form method="post" action="{% url 'redireccionar_inicio' %}">
+        {% csrf_token %}
+        <input type="text" name="correo" placeholder="Correo" required> <br>
+        <input type="password" name="contraseña" placeholder="Contraseña" required> <br>
+        <button type="submit" id="btnlogin">INICIAR SESIÓN</button> <br>
+    </form>
         <li id="pasoregistro">
             <a href="{% url 'registrar_usuario' %}">No tienes cuenta? regístrate aquí</a>
         </li>

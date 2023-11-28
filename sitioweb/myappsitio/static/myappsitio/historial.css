@@ -1,0 +1,136 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(255, 152, 120);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+#logosito {
+    position: absolute;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+}
+#btn-entiendo {
+    background-color: #e98f19;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+#btn-entiendo:hover {
+    background-color: #bb7417;
+}
+
+
+#loginpanel {
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    left: 10%;
+    right: 10%;
+    top: 20%;
+    padding: 20px; 
+    background-color: rgb(255, 127, 86);
+}
+
+@media (max-width: 768px) {
+    #loginpanel {
+        top: 10%;
+    }
+}
+
+#contenedor-blanco {
+    background-color: white !important;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-areas: "item-image item-info item-buttons";
+    gap: 10px;
+}
+
+.item-image {
+    grid-area: item-image;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-image img {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.item-info {
+    grid-area: item-info;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-info span {
+    margin-right: 10px;
+}
+
+.item-buttons {
+    grid-area: item-buttons;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.item-buttons button {
+    background-color: rgb(217, 217, 217);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: none;
+    font-size: 20px !important;
+    cursor: pointer;
+}
+
+.item-count {
+    font-size: 20px;
+}
+
+#btnlogin {
+    border-radius: 10px;
+    background-color: rgb(217, 217, 217);
+    margin-top: 20px;
+    width: 300px;
+    height: 50px;
+}
+
+#inicio-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #e98f19;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#inicio-button:hover {
+    background-color: #bb7417;
+}
+

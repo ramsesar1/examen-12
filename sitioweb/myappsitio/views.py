@@ -48,7 +48,7 @@ def iniciar_sesion(request):
 
         if usuario is not None:
             login(request, usuario)
-            return redirect('inicio_view')  # Redirigir a la página de inicio
+            return redirect('inicio_view/')  # Redirigir a la página de inicio
         else:
             messages.error(request, 'Inicio de sesión fallido. Comprueba tu correo y contraseña.')
             return render(request, 'myappsitio/login.html')
@@ -58,7 +58,13 @@ def iniciar_sesion(request):
 
 
 # views.py
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+# ... otras importaciones ...
+
+def redireccionar_inicio(request):
+    # Puedes realizar cualquier lógica adicional aquí antes de redirigir
+    return redirect('inicio_view')
 
 def inicio_view(request):
     return render(request, 'myappsitio/inicio.html')
