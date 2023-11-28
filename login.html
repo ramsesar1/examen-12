@@ -1,0 +1,65 @@
+<!-- login.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title>Login</title>
+</head>
+<body>
+    <img src="logoRams.png" alt="logo" id="logosito"><br>
+    <div id="loginpanel">
+       
+        <input type="text" id="correo" placeholder="Correo"> <br>
+        <input type="password" id="contra" placeholder="Contraseña"> <br>
+        
+            <button id="btnlogin" onclick="iniciarSesion()">INICIAR SESION</button> <br>
+        
+        <li id="pasoregistro">
+            <a href="registro.html">No tienes cuenta? registrate aquí</a>
+        </li>
+    </div>
+
+    <script>
+        function iniciarSesion() {
+            // Obtener valores de los campos
+            var correo = document.getElementById("correo").value;
+            var contraseña = document.getElementById("contra").value;
+
+            // Validar que se hayan ingresado datos
+            if (!correo || !contraseña) {
+                alert("Por favor, ingresa tu correo y contraseña.");
+                return;
+            }
+
+            // Obtener el array de usuarios del localStorage
+            var usuariosRegistrados = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+            // Buscar el usuario con el correo proporcionado
+            var usuario = usuariosRegistrados.find(function (user) {
+                return user.correo === correo && user.contraseña === contraseña;
+            });
+
+            // Validar si el usuario fue encontrado
+            if (usuario) {
+                // Usuario encontrado, actualiza la información de la última sesión y el último usuario
+                localStorage.setItem("lastLoggedInUser", correo);
+                localStorage.setItem("ultimoUsuario", correo);
+
+                // Puedes redirigir a otra página después del inicio de sesión
+                window.location.href = "inicio.html";
+            } else {
+                // Usuario no encontrado o contraseña incorrecta, mostrar un mensaje de error
+                alert("Inicio de sesión fallido. Comprueba tu correo y contraseña.");
+            }
+
+            // Limpiar los campos después del inicio de sesión (opcional)
+            document.getElementById("correo").value = "";
+            document.getElementById("contra").value = "";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,475 @@
+*{
+    box-sizing: border-box;
+    
+}
+
+body{
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: rgb(255, 127, 86);
+}
+
+#cabeza{
+
+    position: relative;
+    display: flex;
+    padding-bottom: -800px;
+}
+
+#elementos{
+    font-family: 'Roboto', sans-serif;
+    list-style-type: none;
+    font-weight: bold;
+}
+
+#carro{
+    position: absolute;
+    height: 80px;
+    width: auto;
+    left: 1450px;
+    top: 32px;
+}
+
+#usuario{
+    position: absolute;
+    height: 80px;
+    width: auto;
+    top: 30px;
+    left: 1725px;
+}
+
+#lupita{
+    position: absolute;
+    height: 60px;
+    width: auto;
+    left: 380px;
+    top: 63px;
+}
+
+#buscador{
+    position: absolute;
+    display: inline-block;
+    width: 500px;
+    height: 50px;
+    margin-top: 70px;
+    margin-left: 200px;
+}
+
+#cartel{
+    position: absolute;
+    top: 130px;
+    left: -30px;
+    height: 200px;
+    width: auto;
+    z-index: 1;
+}
+
+#volverbtn {
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    top: 470px;
+    left: 1350px;
+    background-color: #e98f19;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#txtcarro{
+    position: absolute;
+    display: inline-block;
+    margin-left: 1200px;
+    margin-top: 110px;
+}
+
+#txtiniciar{
+    position: absolute;
+    display: inline-block;
+    margin-left: 1470px;
+    margin-top: 110px;
+}
+
+#banersito{
+    width: 1863px;
+    height: auto;
+}
+
+#productos{
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    top: -20px;
+    font-size: 20px;  
+    margin-left: 200px;
+
+}
+
+
+
+#superqueso{
+    
+    position: absolute;
+    left: 50px;
+
+}
+
+
+#soda{
+    position: absolute;
+   left: 360px;
+}
+
+#papas{
+    position: absolute;
+    left: 700px;
+}
+
+#familia{
+    position: absolute;
+    left: 1030px;
+    top: 700px;
+}
+
+#solo{
+    position: absolute;
+    left: 1050px;
+}
+
+#sencilla{
+    position: absolute;
+    left: 50px;
+    top: 700px;
+}
+
+#burger{
+    position: absolute;
+    width: auto;
+    height: 170px;
+    left: -20px;
+   
+}
+
+#sodaa{
+    position: absolute;
+    width: auto;
+    height: 160px;
+    top: 170px;
+    margin-left: 340px;
+}
+
+#fritas{
+    position: absolute;
+    width: auto;
+    height: 120px;
+    top: 180px;
+    margin-left: 640px;
+}
+
+#guacabaccon{
+    position: absolute;
+    top: 470px;
+    left: 290px;
+    height: 250px;
+    width: auto;
+}
+
+#guacatxt{
+    position: absolute;
+    top: 700px;
+    left: 340px;
+}
+
+#lowcrab{
+    position: absolute;
+    top: 480px;
+    left: 625px;
+    height: 250px;
+    width: auto;
+}
+
+#lowtxt{
+    position: absolute;
+    top: 700px;
+    left: 700px;
+}
+
+#burger2{
+    position: absolute;
+    width: auto;
+    height: 120px;
+    top: 580px;
+    margin-left: 1000px;
+}
+
+#burger2-1{
+    position: absolute;
+    width: auto;
+    height: 120px;
+    top: 520px;
+    margin-left: 1000px;
+}
+
+#burger2-2{
+    position: absolute;
+    width: auto;
+    height: 120px;
+    top: 560px;
+    margin-left: 1070px;
+}
+
+#burger2-3{
+    position: absolute;
+    width: auto;
+    height: 120px;
+    top: 560px;
+    margin-left: 930px;
+}
+
+#burger1{
+    position: absolute;
+    width: auto;
+    height: 200px;
+    top: 100px;
+    left: 1025px;
+   
+}
+
+#sodaa1{
+    position: absolute;
+    width: auto;
+    height: 160px;
+    top: 170px;
+    margin-left: 1100px;
+}
+
+#fritas1{
+    position: absolute;
+    width: auto;
+    height: 90px;
+    top: 220px;
+    margin-left: 980px;
+}
+
+#menumostrar{
+    position: absolute;
+    left: 1650px;
+    top: 200px;
+}
+
+#burger3{
+    position: absolute;
+    width: auto;
+    height: 200px;
+    left: -20px;
+   top: 500px;
+}
+
+#btn1{
+    position: absolute;
+    top: 370px;
+    left: 110px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(66, 255, 0);
+}
+
+#btn1-1{
+    position: absolute;
+    top: 370px;
+    left: -10px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(33, 122, 255);
+}
+
+#btn2{
+    position: absolute;
+    top: 370px;
+    left: 430px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(66, 255, 0);
+}
+
+#btn2-1{
+    position: absolute;
+    top: 370px;
+    left: 310px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(33, 122, 255);
+}
+
+#btn3{
+    position: absolute;
+    top: 370px;
+    left: 790px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(66, 255, 0);
+}
+
+#btn3-1{
+    position: absolute;
+    top: 370px;
+    left: 670px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(33, 122, 255);
+}
+
+#btn4{
+    position: absolute;
+    top: 370px;
+    left: 1140px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(66, 255, 0);
+}
+
+#btn4-1{
+    position: absolute;
+    top: 370px;
+    left: 1020px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(33, 122, 255);
+}
+
+#btn5{
+    position: absolute;
+    top: 740px;
+    left: 1120px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(66, 255, 0);
+}
+
+#btn5-1{
+    position: absolute;
+    top: 740px;
+    left: 1000px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(33, 122, 255);
+}
+
+#btn6{
+    position: absolute;
+    top: 740px;
+    left: 790px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(66, 255, 0);
+}
+
+#btn6-1{
+    position: absolute;
+    top: 740px;
+    left: 670px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(33, 122, 255);
+}
+
+#btn7{
+    position: absolute;
+    top: 740px;
+    left: 430px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(66, 255, 0);
+}
+
+#btn7-1{
+    position: absolute;
+    top: 740px;
+    left: 310px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(33, 122, 255);
+}
+
+#btn8{
+    position: absolute;
+    top: 740px;
+    left: 110px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(66, 255, 0);
+}
+
+#btn8-1{
+    position: absolute;
+    top: 740px;
+    left: -10px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(33, 122, 255);
+}
+
+
+/* Media query para ajustes en pantallas más pequeñas */
+@media (max-width: 768px) {
+    #cabeza {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #elementos {
+        font-family: 'Roboto', sans-serif;
+        list-style-type: none;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #carro, #usuario, #lupita, #txtcarro, #txtiniciar {
+        position: static;
+        width: auto;
+        margin: 10px;
+        text-align: center; /* Centra el contenido de texto */
+    }
+
+    #buscador {
+        position: static;
+        display: inline-block;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px;
+        text-align: center; /* Centra el contenido de texto */
+    }
+
+    #cartel, #banersito, #productos, #superqueso, #soda, #papas, #familia, #solo, #sencilla, #burger, #sodaa, #fritas, #guacabaccon, #guacatxt, #lowcrab, #lowtxt, #burger2, #burger2-1, #burger2-2, #burger2-3, #burger1, #sodaa1, #fritas1, #menumostrar, #burger3, #btn1, #btn1-1, #btn2, #btn2-1, #btn3, #btn3-1, #btn4, #btn4-1, #btn5, #btn5-1, #btn6, #btn6-1, #btn7, #btn7-1, #btn8, #btn8-1 {
+        position: static;
+        width: auto;
+        margin: 10px;
+        text-align: center; /* Centra el contenido de texto */
+    }
+}
+
+
+

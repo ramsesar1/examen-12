@@ -56,3 +56,51 @@ body{
     border-radius: 10px;
     margin-top: 50px;
 }
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(255, 152, 120);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+#logosito {
+    position: absolute;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+}
+
+#loginpanel {
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    left: 10%;
+    right: 10%;
+    top: 20%;
+    background-color: rgb(255, 127, 86);
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto; 
+}
+
+#correo,
+#contra,
+#btnlogin {
+    width: 100%; 
+    margin-top: 20px; 
+}
+
+#btnlogin {
+    background-color: rgb(217, 217, 217);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#pasoregistro {
+    text-align: center; 
+    margin-top: 20px; 
+}

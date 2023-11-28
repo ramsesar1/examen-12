@@ -1,6 +1,5 @@
 *{
     box-sizing: border-box;
-    
 }
 
 body{
@@ -10,11 +9,36 @@ body{
     background-color: rgb(255, 127, 86);
 }
 
-#cabeza{
+img {
+    max-width: 100%;
+    height: auto;
+}
 
+.imagen-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imagen-container a {
+    text-decoration: none; 
+    color: black; 
+}
+
+.imagen-container img {
+    width: 100%;
+    max-width: 80px; 
+    height: auto;
+}
+
+.imagen-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+#cabeza{
     position: relative;
     display: flex;
-    padding-bottom: -800px;
 }
 
 #elementos{
@@ -23,21 +47,95 @@ body{
     font-weight: bold;
 }
 
-#carro{
+
+#menumostrar {
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    top: 400px;
+    left: 900px;
+    background-color: #e98f19;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#cerrar {
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    top: 50px;
+    left: 1400px;
+    background-color: #e98f19;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+#burger,
+#sodaa,
+#fritas,
+#burger2-1,
+#burger2-2,
+#burger2-3,
+#burger2,
+#burger1,
+#sodaa1,
+#fritas1 {
+    width: 150px;
+    height: 150px;
+}
+/* ... Tus otros estilos ... */
+.productos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.producto {
+    flex: 0 1 calc(50% - 20px);
+    margin: 10px;
+    text-align: center;
+}
+
+.producto-imagen {
+    width: 150px;
+    height: 150px;
+    margin-right: 10px;
+}
+
+.producto-label {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .producto {
+        flex: 0 0 100%;
+    }
+}
+#carro {
     position: absolute;
     height: 80px;
     width: auto;
-    left: 1450px;
+    left: 55%; 
     top: 32px;
 }
 
-#usuario{
+#usuario {
     position: absolute;
     height: 80px;
     width: auto;
     top: 30px;
-    left: 1725px;
+    left: 65%; 
 }
+
 
 #lupita{
     position: absolute;
@@ -59,15 +157,15 @@ body{
 #txtcarro{
     position: absolute;
     display: inline-block;
-    margin-left: 1200px;
-    margin-top: 110px;
+    margin-left: 770px;
+    margin-top: 120px;
 }
 
 #txtiniciar{
     position: absolute;
     display: inline-block;
-    margin-left: 1400px;
-    margin-top: 110px;
+    left: 1205px;
+    margin-top: 120px;
 }
 
 #banersito{
@@ -187,5 +285,3 @@ body{
     top: 220px;
     margin-left: 1310px;
 }
-
-

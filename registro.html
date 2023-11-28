@@ -14,10 +14,70 @@
         <input type="password" id="contra" placeholder="Contraseña"> <br>
         <input type="text" id="telefono" placeholder="Telefono"> <br>
         <input type="text" id="direccion" placeholder="Direccion"> <br>
-        <button id="btnregistro">REGISTRARSE</button> <br>
+        
+            <button id="btnregistro" onclick="registrarUsuario()">REGISTRARSE</button> <br>
+        
         <li id="pasoiniciarsesion">
-            <a href="paginadeinicio.html">Ya tienes cuenta? inicia sesion aqui</a>
+            <a href="login.html">Ya tienes cuenta? inicia sesion aqui</a>
         </li>
     </div>
+
+    <script>
+        function registrarUsuario() {
+            // Obtener valores de los campos
+            var nombre = document.getElementById("name").value;
+            var correo = document.getElementById("correo").value;
+            var contraseña = document.getElementById("contra").value;
+            var telefono = document.getElementById("telefono").value;
+            var direccion = document.getElementById("direccion").value;
+    
+            // Validar que todos los campos estén llenos
+            if (!nombre || !correo || !contraseña || !telefono || !direccion) {
+                alert("Por favor, completa todos los campos antes de registrarte.");
+                return;
+            }
+    
+            // Crear un objeto con los datos del usuario
+            var usuario = {
+                nombre: nombre,
+                correo: correo,
+                contraseña: contraseña,
+                telefono: telefono,
+                direccion: direccion
+            };
+    
+            // Obtener el array actual de usuarios del localStorage
+            var usuariosRegistrados = JSON.parse(localStorage.getItem("usuarios")) || [];
+    
+            // Verificar si el correo ya está registrado
+            var correoExistente = usuariosRegistrados.some(function (user) {
+                return user.correo === correo;
+            });
+    
+            // Si el correo ya está registrado, mostrar un mensaje de error
+            if (correoExistente) {
+                alert("Este correo ya está registrado. Por favor, utiliza otro.");
+                return;
+            }
+    
+            // Agregar el nuevo usuario al array
+            usuariosRegistrados.push(usuario);
+    
+            // Guardar el array actualizado en el localStorage
+            localStorage.setItem("usuarios", JSON.stringify(usuariosRegistrados));
+    
+            // Limpiar los campos después del registro (opcional)
+            document.getElementById("name").value = "";
+            document.getElementById("correo").value = "";
+            document.getElementById("contra").value = "";
+            document.getElementById("telefono").value = "";
+            document.getElementById("direccion").value = "";
+    
+            alert("Usuario registrado correctamente.");
+    
+            // Redirigir solo si el registro fue exitoso
+            window.location.href = "inicio.html";
+        }
+    </script>
 </body>
 </html>

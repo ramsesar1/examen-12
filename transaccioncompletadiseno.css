@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(255, 152, 120);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+#logosito {
+    position: absolute;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+}
+
+#loginpanel {
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    left: 10%;
+    right: 10%;
+    top: 20%;
+    padding: 20px; 
+    background-color: rgb(255, 127, 86);
+}
+
+@media (max-width: 768px) {
+    #loginpanel {
+        top: 10%;
+    }
+}
+
+#contenedor-blanco {
+    background-color: white !important;
+    padding: 20px;
+    text-align: center; /* Añadimos alineación de texto al centro */
+}
+
+p {
+    font-size: 24px; /* Estilo del texto */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+#btnlogin {
+    border-radius: 10px;
+    background-color: #e98f19;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+#btnlogin:hover {
+    background-color: #bb7417;
+}
+
+#inicio-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #e98f19;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#inicio-button:hover {
+    background-color: #bb7417;
+}

@@ -1,60 +1,234 @@
+<!-- carrito.html -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="carritodiseno.css">
     <title>Login</title>
 </head>
+
 <body>
     <a href="inicio.html" id="inicio-button">Ir a Inicio</a>
     <img src="logoRams.png" alt="logo" id="logosito"><br>
     <div id="loginpanel">
-        <div id="contenedor-blanco">
-            <div class="item">
-                <div class="item-image">
-                    <img src="Cheeseburger.png" alt="Artículo 1">
-                </div>
-                <div class="item-info">
-                    <span>SUPER CHEESE</span>
-                    <span>$120</span>
-                </div>
-                <div class="item-buttons">
-                    <button class="btn-plus">+</button>
-                    <span class="item-count">1</span>
-                    <button class="btn-minus">-</button>
-                </div>
-            </div>
-            <div class="item">
-                <div class="item-image">
-                    <img src="soda.png" alt="SODA">
-                </div>
-                <div class "item-info">
-                    <span>SODA</span>
-                    <span>$75</span>
-                </div>
-                <div class="item-buttons">
-                    <button class="btn-plus">+</button>
-                    <span class="item-count">3</span>
-                    <button class="btn-minus">-</button>
-                </div>
-            </div>
-            <div class="item">
-                <div class="item-image">
-                    <img src="fries.png" alt="PAPAS FRITAS 3">
-                </div>
-                <div class="item-info">
-                    <span>PAPAS FRITAS</span>
-                    <span>$110</span>
-                </div>
-                <div class="item-buttons">
-                    <button class="btn-plus">+</button>
-                    <span class="item-count">1</span>
-                    <button class="btn-minus">-</button>
-                </div>
-            </div>
-            <button id="btnlogin">CONFIRMAR PAGO  $305</button>
-        </div>
+        <div id="contenedor-blanco"></div>
+        <!-- Contenedor vacío que se llenará dinámicamente -->
+        <button id="confirmarPagoButton">CONFIRMAR PAGO $305</button>
+        <!-- Botón físico para limpiar el carrito -->
+        <button id="clearCartButton">Limpiar Carrito</button>
     </div>
+    <div id="totalAmount">Total del Carrito: $0</div>
+
+    <script>
+        // Recuperar la lista de items seleccionados del localStorage
+        let selectedItems = JSON.parse(localStorage.getItem('selectedItems')) || {};
+
+        // Mostrar la lista en el contenedor blanco
+        const contenedorBlanco = document.getElementById('contenedor-blanco');
+        const totalAmountDiv = document.getElementById('totalAmount');
+        const confirmarPagoButton = document.getElementById('confirmarPagoButton');
+
+        function updateCart() {
+            // Limpiar el contenedor y volver a mostrar los items actualizados
+            contenedorBlanco.innerHTML = "";
+            let totalAmount = 0;
+            for (const itemId in selectedItems) {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('item');
+
+                // Puedes ajustar la lógica para obtener la información del producto
+                const itemName = getItemNameById(itemId);
+                const itemPrice = getItemPriceById(itemId);
+                const itemTotalPrice = selectedItems[itemId] * parseInt(itemPrice.substring(1)); // Convertir precio a número
+
+                totalAmount += itemTotalPrice;
+
+                itemDiv.innerHTML = `
+                    <div class="item-image">
+                        <img src="${getItemImageById(itemId)}" alt="${itemName}">
+                    </div>
+                    <div class="item-info">
+                        <span>${itemName}</span>
+                        <span>${itemPrice}</span>
+                    </div>
+                    <div class="item-buttons">
+                        <button class="btn-plus" data-item-id="${itemId}">+</button>
+                        <span class="item-count">${selectedItems[itemId]}</span>
+                        <button class="btn-minus" data-item-id="${itemId}">-</button>
+                    </div>
+                    <div class="item-total-price">
+                        Total: $${itemTotalPrice}
+                    </div>
+                `;
+
+                contenedorBlanco.appendChild(itemDiv);
+            }
+
+            // Mostrar el total del carrito
+            totalAmountDiv.innerText = `Total del Carrito: $${totalAmount}`;
+
+            // Actualizar el texto del botón "CONFIRMAR PAGO"
+            confirmarPagoButton.addEventListener('click', confirmarPago);
+            confirmarPagoButton.innerHTML = `CONFIRMAR PAGO $${totalAmount}`;
+
+            // Añadir el botón para limpiar el carrito
+            const clearCartButton = document.createElement('button');
+            clearCartButton.innerText = 'Limpiar Carrito';
+            clearCartButton.addEventListener('click', clearCart);
+            contenedorBlanco.appendChild(clearCartButton);
+
+            // Asignar los manejadores de clic a los botones de incremento y decremento
+            const btnPlusList = document.querySelectorAll('.btn-plus');
+            const btnMinusList = document.querySelectorAll('.btn-minus');
+
+            btnPlusList.forEach(btn => {
+                btn.addEventListener('click', handleIncrementClick);
+            });
+
+            btnMinusList.forEach(btn => {
+                btn.addEventListener('click', handleDecrementClick);
+            });
+        }
+
+        // Puedes implementar funciones auxiliares para obtener información del producto
+        function getItemNameById(itemId) {
+            switch (itemId) {
+                case 'btn1':
+                    return 'WAGYU A5';
+                case 'btn2':
+                    return 'REFRESCO';
+                case 'btn3':
+                    return 'PAPAS FRITAS';
+                case 'btn4':
+                    return 'PACK INDIVIDUAL';
+                case 'btn8':
+                    return 'PRIME';
+                case 'btn7':
+                    return 'GUACA-BACCON';
+                case 'btn6':
+                    return 'LOW-CARB';
+                case 'btn5':
+                    return 'PACK-4-FAMILY';
+
+                // Agrega más casos según tus botones
+                default:
+                    return 'Producto Desconocido';
+            }
+        }
+
+        function getItemPriceById(itemId) {
+            // Lógica para obtener el precio del producto por su ID
+            switch (itemId) {
+                case 'btn1':
+                    return '$1250';
+                case 'btn2':
+                    return '$25';
+                case 'btn3':
+                    return '$50';
+                case 'btn4':
+                    return '$160';
+                case 'btn8':
+                    return '$450';
+                case 'btn7':
+                    return '$120';
+                case 'btn6':
+                    return '$130';
+                case 'btn5':
+                    return '$250';
+                // Agrega más casos según tus botones
+                default:
+                    return '$0';
+            }
+        }
+
+        function getItemImageById(itemId) {
+            // Lógica para obtener la imagen del producto por su ID
+            // Puedes retornar la ruta a la imagen correspondiente a cada producto
+            // Aquí debes agregar más casos según tus botones
+            switch (itemId) {
+                case 'btn1':
+                    return 'superburger.png';
+                case 'btn2':
+                    return 'sodita.png';
+                case 'btn3':
+                    return 'papitas.png';
+                case 'btn4':
+                    return 'burger.png';
+                case 'btn8':
+                    return 'burger.png';
+                case 'btn7':
+                    return 'guacabaccon.png';
+                case 'btn6':
+                    return 'lowcrab.png';
+                case 'btn5':
+                    return 'burger2.png';
+
+                // Agrega más casos según tus botones
+                default:
+                    return 'imagen_desconocida.png';
+            }
+        }
+
+        // Puedes implementar la función para limpiar el carrito
+        function clearCart() {
+            localStorage.removeItem('selectedItems');
+            selectedItems = {};
+            updateCart(); // Actualizar la visualización del carrito después de limpiarlo
+        }
+
+        // Manejador de clic para el botón de incremento
+        function handleIncrementClick(event) {
+            const itemId = event.currentTarget.dataset.itemId;
+            selectedItems[itemId]++;
+            updateCart();
+            saveToLocalStorage();
+        }
+
+        // Manejador de clic para el botón de decremento
+        function handleDecrementClick(event) {
+            const itemId = event.currentTarget.dataset.itemId;
+            if (selectedItems[itemId] > 1) {
+                selectedItems[itemId]--;
+            } else {
+                delete selectedItems[itemId];
+            }
+            updateCart();
+            saveToLocalStorage();
+        }
+
+        // Función para manejar el clic en el botón "CONFIRMAR PAGO"
+        function confirmarPago() {
+            // Obtener el historial de compras del localStorage
+            const historial = JSON.parse(localStorage.getItem('historial')) || [];
+
+            // Obtener los elementos seleccionados del localStorage
+            const selectedItems = JSON.parse(localStorage.getItem('selectedItems')) || {};
+
+            // Agregar la compra actual al historial
+            historial.push(selectedItems);
+
+            // Guardar el historial actualizado en el localStorage
+            localStorage.setItem('historial', JSON.stringify(historial));
+
+            // Limpiar el carrito
+            clearCart();
+
+            // Redirigir a la página de transacción completa (o puedes cambiar esto según tus necesidades)
+            window.location.href = 'transaccioncompleta.html';
+        }
+
+        // Puedes implementar la función para guardar en el localStorage
+        function saveToLocalStorage() {
+            localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+        }
+
+        // Mostrar la lista al cargar la página
+        updateCart();
+
+    </script>
 </body>
+
 </html>
