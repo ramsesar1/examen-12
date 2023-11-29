@@ -37,7 +37,7 @@ class Usuario(AbstractBaseUser):
     USERNAME_FIELD = 'correo'
     REQUIRED_FIELDS = ['nombre', 'telefono', 'direccion']
 
-    def set_contraseña(self, contraseña):
+    def set_contraseña(self, contraseña): 
         self.contraseña = make_password(contraseña)
 
     def check_contraseña(self, contraseña):
