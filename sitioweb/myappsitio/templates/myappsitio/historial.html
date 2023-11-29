@@ -1,47 +1,36 @@
+{% load static %}
+
+<!-- historial.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="carritodiseno.css">
+    <link rel="stylesheet" href="{% static 'myappsitio/historial.css' %}">
     <title>Historial de Compras</title>
 </head>
 <body>
-    <a href="inicio.html" id="inicio-button">Ir a Inicio</a>
-    <img src="logoRams.png" alt="logo" id="logosito"><br>
+    <a href="{% url 'inicio_view' %}" id="inicio-button">Ir a Inicio</a>
+    <img src="{% static 'myappsitio/logoRams.png' %}" alt="logo" id="logosito"><br>
     <div id="loginpanel">
-        <div id="contenedor-blanco"></div>
+        <p>Historial de: {{ usuario.nombre }}</p>  <!-- Muestra el nombre del usuario -->
+        <div id="contenedor-blanco">
+            {% for compra in historial %}
+                <!-- Mostrar información de cada compra, por ejemplo: -->
+                <p>Fecha: {{ compra.fecha }}</p>
+                <p>Productos:</p>
+                <ul>
+                    {% for producto in compra.productos.all %}
+                        <li>{{ producto.nombre }} - Precio: {{ producto.precio }}</li>
+                    {% endfor %}
+                </ul>
+                <hr>
+            {% endfor %}
+        </div>
         <button id="limpiarHistorialButton">Limpiar Historial</button>
+
+        <!-- Agrega un enlace para ir al formulario de inicio de sesión -->
+        <p>¿Quieres iniciar sesión con otra cuenta? <a href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a></p>
     </div>
-
-    <script src="script_historial.js"></script>
-    
-    <script>
-
-
-const lastLoggedInUser = localStorage.getItem('ultimoUsuario');
-
-if (lastLoggedInUser) {
-    const userHistory = JSON.parse(localStorage.getItem(`historial_${lastLoggedInUser}`)) || [];
-
-
-
-        document.getElementById('limpiarHistorialButton').addEventListener('click', limpiarHistorial);
-
-        function limpiarHistorial() {
-            localStorage.removeItem('historial');
-
-            mostrarHistorial();
-        }
-
-        mostrarHistorial();
-
-    } else {
-    alert("Por favor, inicia sesión para ver tu historial.");
-    window.location.href = 'login.html';
-}
-
-    </script>
 </body>
-
 </html>

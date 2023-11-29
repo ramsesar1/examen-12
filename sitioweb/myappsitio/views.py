@@ -3,6 +3,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from .models import Usuario
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.decorators import login_required
+
 
 
 #registro
@@ -48,11 +51,11 @@ def registrar_usuario(request):
 
 #login
 
-# views.py
+# views.py - iniciar_sesion
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from django.contrib.auth.hashers import check_password  # Importa check_password
+from django.contrib.auth.hashers import check_password
 from .models import Usuario
 
 def iniciar_sesion(request):
@@ -64,18 +67,22 @@ def iniciar_sesion(request):
             messages.error(request, 'Por favor, ingresa tu correo y contraseña.')
             return render(request, 'myappsitio/login.html')
 
-        # Consultar la base de datos para autenticar al usuario
         usuario = Usuario.objects.filter(correo=correo).first()
 
         if usuario is not None and check_password(contraseña, usuario.contraseña):
             # Autenticación exitosa
             login(request, usuario)
-            return redirect('inicio_view/')  # Redirigir a la página de inicio
+
+            # Almacena el correo electrónico en la variable de sesión
+            request.session['last_logged_in_user'] = usuario.correo
+
+            return redirect('inicio_view')  # Redirige al nombre de la vista en lugar de la URL directa
         else:
             messages.error(request, 'Inicio de sesión fallido. Comprueba tu correo y contraseña.')
             return render(request, 'myappsitio/login.html')
 
     return render(request, 'myappsitio/login.html')
+
 
 
 
@@ -110,13 +117,28 @@ def carrito_view(request):
     return render(request, 'myappsitio/carrito.html')
 
 
-from django.shortcuts import render
+
+
 
 
 #historial
+
+# views.py
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
 def historial_view(request):
-    # Puedes agregar lógica adicional aquí según sea necesario
-    return render(request, 'myappsitio/historial.html')
+    # Recupera el correo electrónico almacenado en la variable de sesión
+    last_logged_in_user_email = request.session.get('last_logged_in_user')
+
+    # Obtén el usuario correspondiente al correo electrónico
+    last_logged_in_user = Usuario.objects.filter(correo=last_logged_in_user_email).first()
+
+    # Puedes realizar otras operaciones con last_logged_in_user según sea necesario
+
+    return render(request, 'myappsitio/historial.html', {'usuario': last_logged_in_user})
+
+
 
 
 #menu

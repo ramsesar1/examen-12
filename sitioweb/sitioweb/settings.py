@@ -127,3 +127,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'myappsitio', 'static'),
 ]
+
+# LOGIN_REDIRECT_URL = 'pagina_inicio'  # o la URL que prefieras

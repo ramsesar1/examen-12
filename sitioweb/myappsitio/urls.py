@@ -1,6 +1,8 @@
 # myappsitio/urls.py
 
 from django.urls import path
+from django.contrib.auth.views import LoginView, LogoutView
+from . import views
 from .views import iniciar_sesion, registrar_usuario, redireccionar_inicio, inicio_view, carrito_view, historial_view, menu_view, configusuario_view
 
 urlpatterns = [
@@ -13,5 +15,6 @@ urlpatterns = [
     path('menu/', menu_view, name='menu_view'),
     path('configusuario/', configusuario_view, name='configusuario_view'),
     path('carrito/', carrito_view, name='carrito_view'),
+   
     # ... otras URLs de tu aplicación ...
 ]

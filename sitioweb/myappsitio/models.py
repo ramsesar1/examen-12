@@ -31,6 +31,10 @@ class Usuario(AbstractBaseUser):
     direccion = models.TextField()
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    historial = models.JSONField(default=list)  # Campo para almacenar historial de compras
+
+
+
 
     objects = UsuarioManager()
 
