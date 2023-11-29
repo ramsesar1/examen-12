@@ -16,27 +16,27 @@
         <img src="{% static 'myappsitio/logoRams.png' %}" alt="logo" id="logoaka">
         <div id="elementos">
             <div class="imagen-container">
-                <a href="carrito.html">
+                <a href="{% url 'carrito_view' %}">
                     <img src="{% static 'myappsitio/carrito.png' %}" alt="carrito" id="carro">
                     <label for="carrito" id="txtcarro">CARRITO</label>
                 </a>
             </div>
 
             <div class="imagen-container">
-                <a href="configusuario.html">
+                <a href="{% url 'configusuario_view' %}">
                     <img src="{% static 'myappsitio/user.png' %}" alt="user" id="usuario">
                     <label for="usuario" id="txtiniciar">USUARIO</label>
                 </a>
             </div>
 
             <div>
-                <a href="login.html">
+                <a href="{% url 'iniciar_sesion' %}">
                     <button id="cerrar"> CERRAR <br> SESION</button>
                 </a>
             </div>
 
             <div>
-                <a href="historial.html">
+                <a href="{% url 'historial_view' %}">
                     <button id="verHistorial"> VER <br> HISTORIAL</button>
                 </a>
             </div>
@@ -52,7 +52,7 @@
     </div>
 
     <div id="productos" class="productos-container">
-        <a href="menu.html">
+        <a href="{% url 'menu_view' %}">
             <button id="menumostrar"> MENU <br> COMPLETO</button>
         </a>
 

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="carritodiseno.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <a href="inicio.html" id="inicio-button">Ir a Inicio</a>
+    <img src="logoRams.png" alt="logo" id="logosito"><br>
+    <div id="loginpanel">
+        <div id="contenedor-blanco"></div>
+        <button id="confirmarPagoButton">CONFIRMAR PAGO $305</button>
+        <button id="clearCartButton">Limpiar Carrito</button>
+    </div>
+    <div id="totalAmount">Total del Carrito: $0</div>
+
+    <script>
+
+
+    const lastLoggedInUser = localStorage.getItem('ultimoUsuario');
+
+        if (lastLoggedInUser) {
+            const userCart = JSON.parse(localStorage.getItem(`cart_${lastLoggedInUser}`)) || {};
+
+        } else {
+            alert("Por favor, inicia sesión para ver tu carrito.");
+            window.location.href = 'login.html';
+        }
+
+
+
+
+        let selectedItems = JSON.parse(localStorage.getItem('selectedItems')) || {};
+
+        const contenedorBlanco = document.getElementById('contenedor-blanco');
+        const totalAmountDiv = document.getElementById('totalAmount');
+        const confirmarPagoButton = document.getElementById('confirmarPagoButton');
+
+        function updateCart() {
+            contenedorBlanco.innerHTML = "";
+            let totalAmount = 0;
+            for (const itemId in selectedItems) {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('item');
+
+                const itemName = getItemNameById(itemId);
+                const itemPrice = getItemPriceById(itemId);
+                const itemTotalPrice = selectedItems[itemId] * parseInt(itemPrice.substring(1)); 
+
+                totalAmount += itemTotalPrice;
+
+                itemDiv.innerHTML = `
+                    <div class="item-image">
+                        <img src="${getItemImageById(itemId)}" alt="${itemName}">
+                    </div>
+                    <div class="item-info">
+                        <span>${itemName}</span>
+                        <span>${itemPrice}</span>
+                    </div>
+                    <div class="item-buttons">
+                        <button class="btn-plus" data-item-id="${itemId}">+</button>
+                        <span class="item-count">${selectedItems[itemId]}</span>
+                        <button class="btn-minus" data-item-id="${itemId}">-</button>
+                    </div>
+                    <div class="item-total-price">
+                        Total: $${itemTotalPrice}
+                    </div>
+                `;
+
+                contenedorBlanco.appendChild(itemDiv);
+            }
+
+            totalAmountDiv.innerText = `Total del Carrito: $${totalAmount}`;
+
+            confirmarPagoButton.addEventListener('click', confirmarPago);
+            confirmarPagoButton.innerHTML = `CONFIRMAR PAGO $${totalAmount}`;
+
+            const clearCartButton = document.createElement('button');
+            clearCartButton.innerText = 'Limpiar Carrito';
+            clearCartButton.addEventListener('click', clearCart);
+            contenedorBlanco.appendChild(clearCartButton);
+
+            const btnPlusList = document.querySelectorAll('.btn-plus');
+            const btnMinusList = document.querySelectorAll('.btn-minus');
+
+            btnPlusList.forEach(btn => {
+                btn.addEventListener('click', handleIncrementClick);
+            });
+
+            btnMinusList.forEach(btn => {
+                btn.addEventListener('click', handleDecrementClick);
+            });
+        }
+
+        function getItemNameById(itemId) {
+            switch (itemId) {
+                case 'btn1':
+                    return 'WAGYU A5';
+                case 'btn2':
+                    return 'REFRESCO';
+                case 'btn3':
+                    return 'PAPAS FRITAS';
+                case 'btn4':
+                    return 'PACK INDIVIDUAL';
+                case 'btn8':
+                    return 'PRIME';
+                case 'btn7':
+                    return 'GUACA-BACCON';
+                case 'btn6':
+                    return 'LOW-CARB';
+                case 'btn5':
+                    return 'PACK-4-FAMILY';
+
+                default:
+                    return 'Producto Desconocido';
+            }
+        }
+
+        function getItemPriceById(itemId) {
+            switch (itemId) {
+                case 'btn1':
+                    return '$1250';
+                case 'btn2':
+                    return '$25';
+                case 'btn3':
+                    return '$50';
+                case 'btn4':
+                    return '$160';
+                case 'btn8':
+                    return '$450';
+                case 'btn7':
+                    return '$120';
+                case 'btn6':
+                    return '$130';
+                case 'btn5':
+                    return '$250';
+                default:
+                    return '$0';
+            }
+        }
+
+        function getItemImageById(itemId) {
+
+            switch (itemId) {
+                case 'btn1':
+                    return 'superburger.png';
+                case 'btn2':
+                    return 'sodita.png';
+                case 'btn3':
+                    return 'papitas.png';
+                case 'btn4':
+                    return 'burger.png';
+                case 'btn8':
+                    return 'burger.png';
+                case 'btn7':
+                    return 'guacabaccon.png';
+                case 'btn6':
+                    return 'lowcrab.png';
+                case 'btn5':
+                    return 'burger2.png';
+
+                default:
+                    return 'imagen_desconocida.png';
+            }
+        }
+
+        function clearCart() {
+            localStorage.removeItem('selectedItems');
+            selectedItems = {};
+            updateCart(); 
+        }
+
+        function handleIncrementClick(event) {
+            const itemId = event.currentTarget.dataset.itemId;
+            selectedItems[itemId]++;
+            updateCart();
+            saveToLocalStorage();
+        }
+
+        function handleDecrementClick(event) {
+            const itemId = event.currentTarget.dataset.itemId;
+            if (selectedItems[itemId] > 1) {
+                selectedItems[itemId]--;
+            } else {
+                delete selectedItems[itemId];
+            }
+            updateCart();
+            saveToLocalStorage();
+        }
+
+        function confirmarPago() {
+            const historial = JSON.parse(localStorage.getItem('historial')) || [];
+
+            const selectedItems = JSON.parse(localStorage.getItem('selectedItems')) || {};
+
+            historial.push(selectedItems);
+
+            localStorage.setItem('historial', JSON.stringify(historial));
+
+            clearCart();
+
+            window.location.href = 'transaccioncompleta.html';
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+        }
+
+        updateCart();
+
+    </script>
+</body>
+
+</html>

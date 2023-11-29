@@ -1,0 +1,130 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'myappsitio/menu.css' %}">
+    <script src="{% static 'myappsitio/script_menu.js' %}"></script>
+    <title>Menu</title>
+</head>
+<body>
+    <header id="cabeza">
+        <div id="elementos">
+            <a href="{% url 'inicio_view' %}">
+                <img src="{% static 'myappsitio/logoRams.png' %}" alt="logo" id="logoaka">
+            </a>
+            <a href="{% url 'carrito_view' %}">
+                <img src="{% static 'myappsitio/carrito.png' %}" alt="carrito" id="carro">
+            </a>
+        
+            <a href="{% url 'configusuario_view' %}">
+                <img src="{% static 'myappsitio/user.png' %}" alt="user" id="usuario">
+            </a>
+            
+            <img src="{% static 'myappsitio/lupa.png' %}" alt="lupa" id="lupita">
+            <input type="text" id="buscador">
+            <label for="cabeza" id="txtcarro">CARRITO</label> 
+            <label for="cabeza" id="txtiniciar">USUARIO</label>
+        </div>
+    </header>
+
+    <div id="productos">
+        <br>
+        <br>
+        <label for="productos">MENU</label><br>
+        <br>
+        <br>
+        <br>
+
+        <div class="menu-item">
+            <button id="btn1" onclick="addToCart('btn1')">Agregar+</button>
+            <a href="informacionplatillo.html">
+                <button id="btn1-1">Info</button>
+            </a>
+            <img src="{% static 'myappsitio/superburger.png' %}" alt="burgers" id="burger">
+            <img src="{% static 'myappsitio/NO-DISPONIBLE.png' %}" alt="burgers" id="cartel">
+        </div>
+
+        <div class="menu-item">
+            <button id="btn2" onclick="addToCart('btn2')">Agregar+</button>
+            <a href="informacionplatillo.html">
+                <button id="btn2-1">Info</button>
+            </a>
+            <img src="{% static 'myappsitio/sodita.png' %}" alt="soda" id="sodaa">
+        </div>
+
+        <div class="menu-item">
+            <button id="btn3" onclick="addToCart('btn3')">Agregar+</button>
+            <a href="informacionplatillo.html">
+                <button id="btn3-1">Info</button>
+            </a>
+            <img src="{% static 'myappsitio/papitas.png' %}" alt="papas" id="fritas">
+        </div>
+
+        <div class="menu-item">
+            <button id="btn4" onclick="addToCart('btn4')">Agregar+</button>
+            <a href="informacionplatillo.html">
+                <button id="btn4-1">Info</button>
+            </a>
+            <img src="{% static 'myappsitio/burger.png' %}" alt="burgers" id="burger1">
+            <img src="{% static 'myappsitio/sodita.png' %}" alt="soda" id="sodaa1">
+            <img src="{% static 'myappsitio/papitas.png' %}" alt="papas" id="fritas1">
+        </div>
+
+        <div class="menu-item">
+            <button id="btn5" onclick="addToCart('btn5')">Agregar+</button>
+            <a href="informacionplatillo.html">
+                <button id="btn5-1">Info</button>
+            </a>
+            <img src="{% static 'myappsitio/burger.png' %}" alt="burgers" id="burger3">
+        </div>
+
+        <div class="menu-item">
+            <button id="btn6" onclick="addToCart('btn6')">Agregar+</button>
+            <a href="informacionplatillo.html">
+                <button id="btn6-1">Info</button>
+            </a>
+        </div>
+
+        <div class="menu-item">
+            <button id="btn7" onclick="addToCart('btn7')">Agregar+</button>
+            <a href="informacionplatillo.html">
+                <button id="btn7-1">Info</button>
+            </a>
+            <img src="{% static 'myappsitio/guacabaccon.png' %}" alt="burgers3" id="guacabaccon">
+        </div>
+
+        <div class="menu-item">
+            <button id="btn8" onclick="addToCart('btn8')">Agregar+</button>
+            <a href="informacionplatillo.html">
+                <button id="btn8-1">Info</button>
+            </a>
+            <img src="{% static 'myappsitio/lowcrab.png' %}" alt="burger3" id="lowcrab">
+        </div>
+
+        <a href="{% url 'inicio_view' %}">
+            <button id="volverbtn">Volver a Inicio</button>
+        </a>
+        <img src="{% static 'myappsitio/burger2.png' %}" alt="burgers2" id="burger2-1">
+        <img src="{% static 'myappsitio/burger2.png' %}" alt="burgers2" id="burger2-2">
+        <img src="{% static 'myappsitio/burger2.png' %}" alt="burgers2" id="burger2-3">
+        <img src="{% static 'myappsitio/burger2.png' %}" alt="burgers2" id="burger2">
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+</body>
+</html>
