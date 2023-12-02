@@ -126,5 +126,73 @@
         <br>
 
     </div>
+
+
+
+    <script>
+        // script_menu.js
+
+        let selectedItems = {};
+
+        function addToCart(itemId) {
+            if (selectedItems[itemId]) {
+                selectedItems[itemId]++;
+            } else {
+                selectedItems[itemId] = 1;
+            }
+
+            updateCart();
+
+            // Envía los datos al servidor Django usando fetch
+            fetch('/agregar_al_carrito/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'), // Asegúrate de tener esta función para obtener el token CSRF
+                },
+                body: JSON.stringify({
+                    itemId: itemId,
+                    quantity: selectedItems[itemId],
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        function updateCart() {
+            // Actualiza la representación del carrito en el frontend
+            // Esto puede incluir la actualización de elementos HTML, etc.
+        }
+
+        // Función para obtener el token CSRF de las cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Busca el nombre de la cookie con el formato "name="
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+
+
+
+
+
+
 </body>
+
+
 </html>

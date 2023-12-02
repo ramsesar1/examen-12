@@ -1,217 +1,88 @@
+<!-- En tu plantilla Django (carrito.html) -->
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="carritodiseno.css">
+    <link rel="stylesheet" href="{% static 'myappsitio/login.css' %}">
+    <style>
+        #contenedor-blanco {
+            background-color: white;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ddd; /* Borde para resaltar el contenedor */
+            border-radius: 8px; /* Esquinas redondeadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+
+        #totalAmount {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #confirmarPagoButton,
+        #clearCartButton {
+            margin-top: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50; /* Color de fondo verde (puedes cambiarlo) */
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+    </style>
     <title>Login</title>
 </head>
 
 <body>
     <a href="inicio.html" id="inicio-button">Ir a Inicio</a>
-    <img src="logoRams.png" alt="logo" id="logosito"><br>
-    <div id="loginpanel">
-        <div id="contenedor-blanco"></div>
-        <button id="confirmarPagoButton">CONFIRMAR PAGO $305</button>
+    
+    <!-- Contenedor Blanco -->
+    <div id="contenedor-blanco">
+        <div id="totalAmount">Total del Carrito: $0</div>
+
+        <!-- Botones -->
+        <button id="confirmarPagoButton">CONFIRMAR PAGO $</button>
         <button id="clearCartButton">Limpiar Carrito</button>
     </div>
-    <div id="totalAmount">Total del Carrito: $0</div>
+
+    <div id="loginpanel">
+        <!-- Resto de tu código aquí -->
+    </div>
 
     <script>
-
-
-    const lastLoggedInUser = localStorage.getItem('ultimoUsuario');
-
-        if (lastLoggedInUser) {
-            const userCart = JSON.parse(localStorage.getItem(`cart_${lastLoggedInUser}`)) || {};
-
-        } else {
-            alert("Por favor, inicia sesión para ver tu carrito.");
-            window.location.href = 'login.html';
-        }
-
-
-
-
-        let selectedItems = JSON.parse(localStorage.getItem('selectedItems')) || {};
-
-        const contenedorBlanco = document.getElementById('contenedor-blanco');
-        const totalAmountDiv = document.getElementById('totalAmount');
         const confirmarPagoButton = document.getElementById('confirmarPagoButton');
-
-        function updateCart() {
-            contenedorBlanco.innerHTML = "";
-            let totalAmount = 0;
-            for (const itemId in selectedItems) {
-                const itemDiv = document.createElement('div');
-                itemDiv.classList.add('item');
-
-                const itemName = getItemNameById(itemId);
-                const itemPrice = getItemPriceById(itemId);
-                const itemTotalPrice = selectedItems[itemId] * parseInt(itemPrice.substring(1)); 
-
-                totalAmount += itemTotalPrice;
-
-                itemDiv.innerHTML = `
-                    <div class="item-image">
-                        <img src="${getItemImageById(itemId)}" alt="${itemName}">
-                    </div>
-                    <div class="item-info">
-                        <span>${itemName}</span>
-                        <span>${itemPrice}</span>
-                    </div>
-                    <div class="item-buttons">
-                        <button class="btn-plus" data-item-id="${itemId}">+</button>
-                        <span class="item-count">${selectedItems[itemId]}</span>
-                        <button class="btn-minus" data-item-id="${itemId}">-</button>
-                    </div>
-                    <div class="item-total-price">
-                        Total: $${itemTotalPrice}
-                    </div>
-                `;
-
-                contenedorBlanco.appendChild(itemDiv);
-            }
-
-            totalAmountDiv.innerText = `Total del Carrito: $${totalAmount}`;
-
-            confirmarPagoButton.addEventListener('click', confirmarPago);
-            confirmarPagoButton.innerHTML = `CONFIRMAR PAGO $${totalAmount}`;
-
-            const clearCartButton = document.createElement('button');
-            clearCartButton.innerText = 'Limpiar Carrito';
-            clearCartButton.addEventListener('click', clearCart);
-            contenedorBlanco.appendChild(clearCartButton);
-
-            const btnPlusList = document.querySelectorAll('.btn-plus');
-            const btnMinusList = document.querySelectorAll('.btn-minus');
-
-            btnPlusList.forEach(btn => {
-                btn.addEventListener('click', handleIncrementClick);
-            });
-
-            btnMinusList.forEach(btn => {
-                btn.addEventListener('click', handleDecrementClick);
-            });
-        }
-
-        function getItemNameById(itemId) {
-            switch (itemId) {
-                case 'btn1':
-                    return 'WAGYU A5';
-                case 'btn2':
-                    return 'REFRESCO';
-                case 'btn3':
-                    return 'PAPAS FRITAS';
-                case 'btn4':
-                    return 'PACK INDIVIDUAL';
-                case 'btn8':
-                    return 'PRIME';
-                case 'btn7':
-                    return 'GUACA-BACCON';
-                case 'btn6':
-                    return 'LOW-CARB';
-                case 'btn5':
-                    return 'PACK-4-FAMILY';
-
-                default:
-                    return 'Producto Desconocido';
-            }
-        }
-
-        function getItemPriceById(itemId) {
-            switch (itemId) {
-                case 'btn1':
-                    return '$1250';
-                case 'btn2':
-                    return '$25';
-                case 'btn3':
-                    return '$50';
-                case 'btn4':
-                    return '$160';
-                case 'btn8':
-                    return '$450';
-                case 'btn7':
-                    return '$120';
-                case 'btn6':
-                    return '$130';
-                case 'btn5':
-                    return '$250';
-                default:
-                    return '$0';
-            }
-        }
-
-        function getItemImageById(itemId) {
-
-            switch (itemId) {
-                case 'btn1':
-                    return 'superburger.png';
-                case 'btn2':
-                    return 'sodita.png';
-                case 'btn3':
-                    return 'papitas.png';
-                case 'btn4':
-                    return 'burger.png';
-                case 'btn8':
-                    return 'burger.png';
-                case 'btn7':
-                    return 'guacabaccon.png';
-                case 'btn6':
-                    return 'lowcrab.png';
-                case 'btn5':
-                    return 'burger2.png';
-
-                default:
-                    return 'imagen_desconocida.png';
-            }
-        }
-
-        function clearCart() {
-            localStorage.removeItem('selectedItems');
-            selectedItems = {};
-            updateCart(); 
-        }
-
-        function handleIncrementClick(event) {
-            const itemId = event.currentTarget.dataset.itemId;
-            selectedItems[itemId]++;
-            updateCart();
-            saveToLocalStorage();
-        }
-
-        function handleDecrementClick(event) {
-            const itemId = event.currentTarget.dataset.itemId;
-            if (selectedItems[itemId] > 1) {
-                selectedItems[itemId]--;
-            } else {
-                delete selectedItems[itemId];
-            }
-            updateCart();
-            saveToLocalStorage();
-        }
-
+    
+        confirmarPagoButton.addEventListener('click', confirmarPago);
+    
         function confirmarPago() {
-            const historial = JSON.parse(localStorage.getItem('historial')) || [];
-
+            // Obtener la información del carrito o los productos seleccionados
             const selectedItems = JSON.parse(localStorage.getItem('selectedItems')) || {};
-
-            historial.push(selectedItems);
-
-            localStorage.setItem('historial', JSON.stringify(historial));
-
-            clearCart();
-
-            window.location.href = 'transaccioncompleta.html';
+    
+            // Enviar una solicitud al backend de Django para guardar la orden en la base de datos
+            fetch('/guardar_orden/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    selectedItems: selectedItems,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Limpiar el carrito y redirigir a la página de transacción completa
+                clearCart();
+                window.location.href = 'transaccioncompleta.html';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
-
-        function saveToLocalStorage() {
-            localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
-        }
-
-        updateCart();
-
     </script>
 </body>
 

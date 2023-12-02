@@ -5,11 +5,15 @@ from django.contrib import messages
 from .models import Usuario
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib.auth.hashers import make_password, check_password
+from django.contrib import messages
+from .models import Usuario
+from django.views.decorators.csrf import csrf_protect
 
 
 #registro
-
 
 
 def registrar_usuario(request):
@@ -49,6 +53,19 @@ def registrar_usuario(request):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 #login
 
 # views.py - iniciar_sesion
@@ -76,12 +93,15 @@ def iniciar_sesion(request):
             # Almacena el correo electrónico en la variable de sesión
             request.session['last_logged_in_user'] = usuario.correo
 
+            print(f"Iniciando sesión para el usuario: {usuario}")  # Agrega este print
+
             return redirect('inicio_view')  # Redirige al nombre de la vista en lugar de la URL directa
         else:
             messages.error(request, 'Inicio de sesión fallido. Comprueba tu correo y contraseña.')
             return render(request, 'myappsitio/login.html')
 
     return render(request, 'myappsitio/login.html')
+
 
 
 
@@ -114,10 +134,33 @@ from django.shortcuts import render, redirect
 
 def carrito_view(request):
     # Puedes realizar cualquier lógica adicional aquí antes de renderizar la página
+
     return render(request, 'myappsitio/carrito.html')
 
 
 
+# views.py
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import Historial  # Asegúrate de importar el modelo correcto
+
+@csrf_exempt
+def guardar_orden(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        selected_items = data.get('selectedItems', {})
+        
+        # Obtener el usuario actualmente autenticado (asegúrate de que tu backend maneje la autenticación)
+        usuario = request.user
+
+        # Guardar la orden en el historial
+        historial = Historial(usuario=usuario, detalles=json.dumps(selected_items))
+        historial.save()
+
+        return JsonResponse({'message': 'Orden guardada exitosamente'})
+    else:
+        return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 
 
@@ -137,6 +180,28 @@ def historial_view(request):
     # Puedes realizar otras operaciones con last_logged_in_user según sea necesario
 
     return render(request, 'myappsitio/historial.html', {'usuario': last_logged_in_user})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

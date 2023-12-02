@@ -55,3 +55,43 @@ class Usuario(AbstractBaseUser):
 
     def __str__(self):
         return self.nombre
+
+
+
+
+
+#carrito e historial
+
+
+
+# models.py
+from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class Historial(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    numero_compra = models.AutoField(primary_key=True)  # Campo autoincremental para el número de compra
+    fecha = models.DateTimeField(auto_now_add=True)
+    detalles = models.JSONField()  # Campo para almacenar detalles de la compra, como los artículos
+    precio_total = models.DecimalField(max_digits=10, decimal_places=2)  # Campo para el precio total de la compra
+
+    def __str__(self):
+        return f'Compra {self.numero_compra} - {self.usuario.correo}'
+
+
+
+#Inventario
+
+# models.py
+from django.db import models
+
+class Alimento(models.Model):
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=255)
+    cantidad = models.DecimalField(max_digits=10, decimal_places=2)
+    medida = models.CharField(max_length=10, choices=[('gr', 'Gramos'), ('ml', 'Mililitros')])
+
+    def __str__(self):
+        return self.nombre

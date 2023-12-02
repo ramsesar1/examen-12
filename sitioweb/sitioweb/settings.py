@@ -50,6 +50,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+# settings.py
+
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+CSRF_USE_SESSIONS = True
+CSRF_COOKIE_NAME = "csrftoken"
+
+
+
+
 ROOT_URLCONF = 'sitioweb.urls'
 
 TEMPLATES = [
@@ -129,3 +140,4 @@ STATICFILES_DIRS = [
 ]
 
 # LOGIN_REDIRECT_URL = 'pagina_inicio'  # o la URL que prefieras
+LOGIN_REDIRECT_URL = 'pagina_inicio'

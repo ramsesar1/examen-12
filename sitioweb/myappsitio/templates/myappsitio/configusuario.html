@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,32 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'myappsitio/configusuariodiseno.css' %}">
     <title>Usuario</title>
+    <p>Estás viendo la plantilla configusuario.html</p>
+
 </head>
 <body>
     <a href="{% url 'inicio_view' %}" id="inicio-button">Ir a Inicio</a>
- 
     <div id="registro">
-        <div class="input-container">
-            <input type="text" id="name" placeholder="Nombre">
-            <button id="namebtn">EDITAR</button>
-        </div>
-        <div class="input-container">
-            <input type="text" id="correo" placeholder="Correo">
-            <button id="correobtn">EDITAR</button>
-        </div>
-        <div class="input-container">
-            <input type="password" id="contra" placeholder="Contraseña">
-            <button id="contrabtn">EDITAR</button>
-        </div>
-        <div class="input-container">
-            <input type="text" id="telefono" placeholder="Telefono">
-            <button id="telefonobtn">EDITAR</button>
-        </div>
-        <div class="input-container">
-            <input type="text" id="direccion" placeholder="Direccion">
-            <button id="direccionbtn">EDITAR</button>
-        </div>
-        <button id="btnconfirmar">CONFIRMAR</button> <br>
+        <form method="post" action="{% url 'config_usuario' %}">
+            {% csrf_token %}
+            <input type="text" name="name" id="name" placeholder="Nombre" required> <br>
+            <input type="email" name="correo" id="correo" placeholder="Correo" required> <br>
+            <input type="password" name="contra" id="contra" placeholder="Contraseña" required> <br>
+            <input type="tel" name="telefono" id="telefono" placeholder="Telefono" required> <br>
+            <input type="text" name="direccion" id="direccion" placeholder="Direccion" required> <br>
+            <button type="submit" id="btnregistro">CONFIRMAR</button> <br>
+        </form>
     </div>
 </body>
 </html>
