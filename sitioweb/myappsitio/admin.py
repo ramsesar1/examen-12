@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from .views import Usuario
+from .models import Alimento
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -8,3 +9,4 @@ urlpatterns = [
 
 # Register your models here. 
 admin.site.register(Usuario)
+admin.site.register(Alimento)

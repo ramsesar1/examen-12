@@ -19,7 +19,7 @@
                 <img src="{% static 'myappsitio/carrito.png' %}" alt="carrito" id="carro">
             </a>
         
-            <a href="{% url 'configusuario_view' %}">
+            <a href="{% url 'config_usuario' %}">
                 <img src="{% static 'myappsitio/user.png' %}" alt="user" id="usuario">
             </a>
             
@@ -127,10 +127,25 @@
 
     </div>
 
-
-
     <script>
         // script_menu.js
+
+        // Función para obtener el token CSRF de las cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Busca el nombre de la cookie con el formato "name="
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
 
         let selectedItems = {};
 
@@ -141,6 +156,9 @@
                 selectedItems[itemId] = 1;
             }
 
+            // Guardar temporalmente los elementos seleccionados en el Local Storage
+            localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+            
             updateCart();
 
             // Envía los datos al servidor Django usando fetch
@@ -168,31 +186,6 @@
             // Actualiza la representación del carrito en el frontend
             // Esto puede incluir la actualización de elementos HTML, etc.
         }
-
-        // Función para obtener el token CSRF de las cookies
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    // Busca el nombre de la cookie con el formato "name="
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
     </script>
-
-
-
-
-
-
 </body>
-
-
 </html>
