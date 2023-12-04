@@ -49,20 +49,6 @@ def registrar_usuario(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #login
 
 # views.py - iniciar_sesion
@@ -213,25 +199,6 @@ def historial_compras_view(request):
     historial_compras = Historial.objects.all()
 
     return render(request, 'myappsitio/historial_compras.html', {'historial': historial_compras})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
