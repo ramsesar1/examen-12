@@ -1,6 +1,5 @@
 {% load static %}
 
-<!-- historial.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +15,6 @@
         <p>Historial de: {{ usuario.nombre }}</p>  <!-- Muestra el nombre del usuario -->
         <div id="contenedor-blanco">
             {% for compra in historial %}
-                <!-- Mostrar información de cada compra, por ejemplo: -->
                 <p>{{ compra }}</p>
                 <p>Detalles:</p>
                 <pre>{{ compra.detalles|safe }}</pre>
@@ -25,7 +23,6 @@
         </div>
         <button id="limpiarHistorialButton">Limpiar Historial</button>
 
-        <!-- Agrega un enlace para ir al formulario de inicio de sesión -->
         <p>¿Quieres iniciar sesión con otra cuenta? <a href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a></p>
     </div>
 </body>

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <a href="inicio.html" id="inicio-button">Ir a Inicio</a>
+    <a href="{% url 'inicio_view' %}" id="inicio-button">Ir a Inicio</a>
     <img src="{% static 'myappsitio/logoRams.png' %}" alt="logo" id="logosito"><br>
     <div id="loginpanel">
         <div id="contenedor-blanco"></div>
@@ -181,12 +181,11 @@
                 carritoContenido[itemName] = selectedItems[itemId];
             }
         
-            // Enviar el contenido del carrito al backend (Django)
             fetch('/guardar_orden/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken'),  // Asegúrate de obtener el token CSRF
+                    'X-CSRFToken': getCookie('csrftoken'),  
                 },
                 body: JSON.stringify({ detalles: carritoContenido }),
             })

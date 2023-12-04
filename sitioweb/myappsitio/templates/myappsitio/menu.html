@@ -128,16 +128,13 @@
     </div>
 
     <script>
-        // script_menu.js
-
-        // Función para obtener el token CSRF de las cookies
+      
         function getCookie(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
                 const cookies = document.cookie.split(';');
                 for (let i = 0; i < cookies.length; i++) {
                     const cookie = cookies[i].trim();
-                    // Busca el nombre de la cookie con el formato "name="
                     if (cookie.substring(0, name.length + 1) === (name + '=')) {
                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                         break;
@@ -156,7 +153,6 @@
                 selectedItems[itemId] = 1;
             }
 
-            // Guardar temporalmente los elementos seleccionados en el Local Storage
             localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
             
             updateCart();
@@ -166,7 +162,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken'), // Asegúrate de tener esta función para obtener el token CSRF
+                    'X-CSRFToken': getCookie('csrftoken'), 
                 },
                 body: JSON.stringify({
                     itemId: itemId,
@@ -183,8 +179,7 @@
         }
 
         function updateCart() {
-            // Actualiza la representación del carrito en el frontend
-            // Esto puede incluir la actualización de elementos HTML, etc.
+ 
         }
     </script>
 </body>

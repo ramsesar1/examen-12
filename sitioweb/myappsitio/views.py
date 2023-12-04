@@ -29,10 +29,8 @@ def registrar_usuario(request):
             messages.error(request, 'Este correo electrónico ya está registrado. Por favor, elige otro.')
             return render(request, 'myappsitio/registro.html')
 
-        # Hash de la contraseña antes de guardarla en la base de datos
         contraseña_hasheada = make_password(contraseña)
 
-        # Crear un nuevo usuario y guardarlo en la base de datos
         nuevo_usuario = Usuario(
             nombre=nombre,
             correo=correo,
@@ -42,7 +40,6 @@ def registrar_usuario(request):
         )
         nuevo_usuario.save()
 
-        # Redirigir a la página de inicio o a donde desees
         return redirect('pagina_inicio')
 
     return render(request, 'myappsitio/registro.html')
@@ -90,12 +87,11 @@ def iniciar_sesion(request):
             # Autenticación exitosa
             login(request, usuario)
 
-            # Almacena el correo electrónico en la variable de sesión
             request.session['last_logged_in_user'] = usuario.correo
 
-            print(f"Iniciando sesión para el usuario: {usuario}")  # Agrega este print
+            print(f"Iniciando sesión para el usuario: {usuario}")  
 
-            return redirect('inicio_view')  # Redirige al nombre de la vista en lugar de la URL directa
+            return redirect('inicio_view') 
         else:
             messages.error(request, 'Inicio de sesión fallido. Comprueba tu correo y contraseña.')
             return render(request, 'myappsitio/login.html')
@@ -112,11 +108,9 @@ def iniciar_sesion(request):
 # views.py
 from django.shortcuts import render, redirect
 
-# ... otras importaciones ...
 
 
 def redireccionar_inicio(request):
-    # Puedes realizar cualquier lógica adicional aquí antes de redirigir
     return redirect('inicio_view')
 
 def inicio_view(request):
@@ -126,14 +120,11 @@ def inicio_view(request):
 
 #carrito 
 
-# myappsitio/views.py
 
 from django.shortcuts import render, redirect
 
-# ... otras importaciones ...
 
 def carrito_view(request):
-    # Puedes realizar cualquier lógica adicional aquí antes de renderizar la página
 
     return render(request, 'myappsitio/carrito.html')
 
@@ -145,7 +136,7 @@ def carrito_view(request):
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import Historial  # Asegúrate de importar el modelo correcto
+from .models import Historial  
 from django.db import transaction
 from .models import Alimento
 
@@ -155,7 +146,6 @@ from .models import Alimento
 def guardar_orden(request):
     if request.method == 'POST':
         try:
-            # Estructura de datos que mapea cada producto a sus ingredientes y cantidades
             estructura_consumo = {
                 'REFRESCO': {'Lata refresco': 1},
                 'PAPAS FRITAS': {'Papas': 2},
@@ -172,10 +162,8 @@ def guardar_orden(request):
             # Obtener los detalles del carrito desde los datos JSON
             detalles = data.get('detalles', {})
 
-            # Guardar los detalles en la base de datos (Historial)
             historial = Historial.objects.create(detalles=detalles)
 
-            # Actualizar la cantidad de alimentos en inventario
             for producto, cantidad_consumida in detalles.items():
                 if producto in estructura_consumo:
                     ingredientes = estructura_consumo[producto]
@@ -205,14 +193,12 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 def historial_view(request):
-    # Obtén el historial de todas las compras
     historial = Historial.objects.all()
 
     # Recupera el usuario que hizo login
     last_logged_in_user_email = request.session.get('last_logged_in_user')
     last_logged_in_user = Usuario.objects.filter(correo=last_logged_in_user_email).first()
 
-    # Puedes realizar otras operaciones con last_logged_in_user según sea necesario
 
     # Pasa tanto el historial como el usuario a la plantilla
     return render(request, 'myappsitio/historial.html', {'historial': historial, 'usuario': last_logged_in_user})
@@ -252,14 +238,12 @@ def historial_compras_view(request):
 
 #menu
 def menu_view(request):
-    # Puedes agregar lógica adicional aquí según sea necesario
     return render(request, 'myappsitio/menu.html')
 
 
 
 #configuracionusuario
 def configusuario_view(request):
-    # Puedes agregar lógica adicional aquí según sea necesario
     return render(request, 'myappsitio/configusuario.html')
 
 #transaccioncompleta

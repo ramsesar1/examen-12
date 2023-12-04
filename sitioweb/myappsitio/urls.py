@@ -1,4 +1,3 @@
-# myappsitio/urls.py
 
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
@@ -23,5 +22,4 @@ urlpatterns = [
     path('historial_usuario',views.historial_compras_view, name='historial_compras'),
     path('transaccioncompleta_view/', views.transaccioncompleta_view, name='transaccioncompleta_view'),
 
-    # ... otras URLs de tu aplicación ...
 ]
