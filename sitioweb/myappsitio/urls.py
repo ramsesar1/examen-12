@@ -20,6 +20,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('accounts/login/', LoginView.as_view(template_name='myappsitio/login.html'), name='login'),
     path('historial/', views.historial_view, name='historial_view'),
+    path('historial_usuario',views.historial_compras_view, name='historial_compras'),
     path('transaccioncompleta_view/', views.transaccioncompleta_view, name='transaccioncompleta_view'),
+
     # ... otras URLs de tu aplicación ...
 ]

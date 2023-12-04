@@ -17,13 +17,9 @@
         <div id="contenedor-blanco">
             {% for compra in historial %}
                 <!-- Mostrar información de cada compra, por ejemplo: -->
-                <p>Fecha: {{ compra.fecha }}</p>
-                <p>Productos:</p>
-                <ul>
-                    {% for producto in compra.productos.all %}
-                        <li>{{ producto.nombre }} - Precio: {{ producto.precio }}</li>
-                    {% endfor %}
-                </ul>
+                <p>{{ compra }}</p>
+                <p>Detalles:</p>
+                <pre>{{ compra.detalles|safe }}</pre>
                 <hr>
             {% endfor %}
         </div>

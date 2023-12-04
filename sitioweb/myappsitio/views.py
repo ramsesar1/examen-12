@@ -146,10 +146,26 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Historial  # Asegúrate de importar el modelo correcto
+from django.db import transaction
+from .models import Alimento
+
 @csrf_exempt
+@transaction.atomic
+
 def guardar_orden(request):
     if request.method == 'POST':
         try:
+            # Estructura de datos que mapea cada producto a sus ingredientes y cantidades
+            estructura_consumo = {
+                'REFRESCO': {'Lata refresco': 1},
+                'PAPAS FRITAS': {'Papas': 2},
+                'PACK INDIVIDUAL': {'Lata refresco': 1, 'Papas': 2, 'Panes': 2, 'Carne': 1, 'Tomate': 1, 'Lechuga': 1, 'Mostaza': 1, 'Mayonesa': 1},
+                'PRIME': {'Panes': 2, 'Carne': 2, 'Tomate': 1, 'Lechuga': 1, 'Mostaza': 1, 'Mayonesa': 1},
+                'GUACA-BACON': {'Panes': 2, 'Carne': 1, 'Tomate': 1, 'Lechuga': 1, 'Mostaza': 1, 'Mayonesa': 1},
+                'LOW-CARB': {'Lechuga': 4, 'Carne': 1, 'Tomate': 1, 'Mostaza': 1, 'Mayonesa': 1},
+                'PACK-4-FAMILY': {'Panes': 8, 'Carne': 4, 'Tomate': 4, 'Mostaza': 4, 'Mayonesa': 4},
+            }
+
             # Obtener los datos JSON de la solicitud
             data = json.loads(request.body)
             
@@ -158,6 +174,19 @@ def guardar_orden(request):
 
             # Guardar los detalles en la base de datos (Historial)
             historial = Historial.objects.create(detalles=detalles)
+
+            # Actualizar la cantidad de alimentos en inventario
+            for producto, cantidad_consumida in detalles.items():
+                if producto in estructura_consumo:
+                    ingredientes = estructura_consumo[producto]
+
+                    for ingrediente, cantidad in ingredientes.items():
+                        try:
+                            alimento_obj = Alimento.objects.get(nombre__iexact=ingrediente.strip())
+                            alimento_obj.cantidad -= cantidad * cantidad_consumida
+                            alimento_obj.save()
+                        except Alimento.DoesNotExist:
+                            return JsonResponse({'error': f'Alimento no encontrado: {ingrediente}'}, status=404)
 
             return JsonResponse({'mensaje': f'Orden guardada con éxito. ID: {historial.id}'})
         except json.JSONDecodeError as e:
@@ -176,18 +205,28 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 def historial_view(request):
-    # Recupera el correo electrónico almacenado en la variable de sesión
-    last_logged_in_user_email = request.session.get('last_logged_in_user')
+    # Obtén el historial de todas las compras
+    historial = Historial.objects.all()
 
-    # Obtén el usuario correspondiente al correo electrónico
+    # Recupera el usuario que hizo login
+    last_logged_in_user_email = request.session.get('last_logged_in_user')
     last_logged_in_user = Usuario.objects.filter(correo=last_logged_in_user_email).first()
 
     # Puedes realizar otras operaciones con last_logged_in_user según sea necesario
 
-    return render(request, 'myappsitio/historial.html', {'usuario': last_logged_in_user})
+    # Pasa tanto el historial como el usuario a la plantilla
+    return render(request, 'myappsitio/historial.html', {'historial': historial, 'usuario': last_logged_in_user})
 
 
 
+
+from django.shortcuts import render
+from .models import Historial
+
+def historial_compras_view(request):
+    historial_compras = Historial.objects.all()
+
+    return render(request, 'myappsitio/historial_compras.html', {'historial': historial_compras})
 
 
 
