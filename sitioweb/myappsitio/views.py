@@ -139,35 +139,31 @@ def carrito_view(request):
 
 
 
+
+
 # views.py
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Historial  # Asegúrate de importar el modelo correcto
-
 @csrf_exempt
 def guardar_orden(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        selected_items = data.get('selectedItems', {})
-        
-        # Obtener el usuario actualmente autenticado (asegúrate de que tu backend maneje la autenticación)
-        usuario = request.user
+        try:
+            # Obtener los datos JSON de la solicitud
+            data = json.loads(request.body)
+            
+            # Obtener los detalles del carrito desde los datos JSON
+            detalles = data.get('detalles', {})
 
-        # Guardar la orden en el historial
-        historial = Historial(usuario=usuario, detalles=json.dumps(selected_items))
-        historial.save()
+            # Guardar los detalles en la base de datos (Historial)
+            historial = Historial.objects.create(detalles=detalles)
 
-        return JsonResponse({'message': 'Orden guardada exitosamente'})
+            return JsonResponse({'mensaje': f'Orden guardada con éxito. ID: {historial.id}'})
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': f'Error al decodificar JSON: {str(e)}'}, status=400)
     else:
         return JsonResponse({'error': 'Método no permitido'}, status=405)
-
-
-
-
-
-
-
 
 
 
@@ -226,3 +222,7 @@ def menu_view(request):
 def configusuario_view(request):
     # Puedes agregar lógica adicional aquí según sea necesario
     return render(request, 'myappsitio/configusuario.html')
+
+#transaccioncompleta
+def transaccioncompleta_view(request):
+    return render (request, 'myappsitio/transaccioncompleta.html')

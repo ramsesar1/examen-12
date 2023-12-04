@@ -174,14 +174,56 @@
         }
 
         function confirmarPago() {
-            // Aquí puedes implementar la lógica para confirmar el pago
-            // Puedes enviar los datos al backend o redirigir a una página de transacción completa
-            // También puedes limpiar el carrito después de confirmar el pago
-            // Ejemplo:
-            alert('Pago confirmado. Redirigiendo a la página de transacción completa.');
+            // Obtener el contenido del carrito del local storage
+            const carritoContenido = JSON.parse(localStorage.getItem('selectedItems')) || {};
+        
+            // Enviar el contenido del carrito al backend (Django)
+            fetch('/guardar_orden/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),  // Asegúrate de obtener el token CSRF
+                },
+                body: JSON.stringify({ detalles: carritoContenido }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Manejar la respuesta del servidor si es necesario
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error al enviar la orden al servidor:', error);
+            });
+        
+            // Limpiar el carrito local después de confirmar el pago
             clearCart();
-            window.location.href = 'transaccioncompleta.html';
         }
+
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Buscar el token CSRF
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+
+
+
+
+
+
+
 
         function saveToLocalStorage() {
             localStorage.setItem('selectedItems', JSON.stringify(selectedItems));

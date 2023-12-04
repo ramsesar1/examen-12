@@ -31,7 +31,6 @@ class Usuario(AbstractBaseUser):
     direccion = models.TextField()
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    historial = models.JSONField(default=list)  # Campo para almacenar historial de compras
 
 
 
@@ -63,7 +62,6 @@ class Usuario(AbstractBaseUser):
 #carrito e historial
 
 
-
 # models.py
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -71,14 +69,12 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Historial(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    numero_compra = models.AutoField(primary_key=True)  # Campo autoincremental para el número de compra
-    fecha = models.DateTimeField(auto_now_add=True)
-    detalles = models.JSONField()  # Campo para almacenar detalles de la compra, como los artículos
-    precio_total = models.DecimalField(max_digits=10, decimal_places=2)  # Campo para el precio total de la compra
+    id = models.AutoField(primary_key=True)
+    detalles = models.JSONField()
 
     def __str__(self):
-        return f'Compra {self.numero_compra} - {self.usuario.correo}'
+        return f'Compra {self.id}'
+
 
 
 

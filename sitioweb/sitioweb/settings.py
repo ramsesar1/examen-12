@@ -141,3 +141,4 @@ STATICFILES_DIRS = [
 
 # LOGIN_REDIRECT_URL = 'pagina_inicio'  # o la URL que prefieras
 LOGIN_REDIRECT_URL = 'pagina_inicio'
+
