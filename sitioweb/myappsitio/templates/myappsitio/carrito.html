@@ -175,7 +175,11 @@
 
         function confirmarPago() {
             // Obtener el contenido del carrito del local storage
-            const carritoContenido = JSON.parse(localStorage.getItem('selectedItems')) || {};
+            const carritoContenido = {};
+            for (const itemId in selectedItems) {
+                const itemName = getItemNameById(itemId);
+                carritoContenido[itemName] = selectedItems[itemId];
+            }
         
             // Enviar el contenido del carrito al backend (Django)
             fetch('/guardar_orden/', {
